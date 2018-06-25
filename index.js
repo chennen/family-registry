@@ -1,9 +1,15 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const pg = require('pg');
+const basicAuth = require('express-basic-auth');
+
+const username = process.env.USER || 'admin';
+const password = process.env.PASSWORD || 'secretsecret';
 
 const app = express();
-
+app.use(basicAuth({
+    users: { [username]: password }
+}));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
