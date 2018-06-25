@@ -26,8 +26,6 @@ app.set('view engine', 'handlebars');
 app.get('/', async (req, res) => {
 
     try {
-
-        console.log(contacts);
         const contacts = await runSqueal('select * from people');
         res.render('home', { contacts });
     } catch (err) {
