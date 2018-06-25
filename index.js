@@ -2,15 +2,20 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const pg = require('pg');
 const basicAuth = require('express-basic-auth');
+const bodyParser = require('body-parser');
 
 const username = process.env.USER || 'admin';
 const password = process.env.PASSWORD || 'secretsecret';
 
 const app = express();
+
 app.use(basicAuth({
     users: { [username]: password },
     challenge: true
 }));
+
+app.use(bodyParser.urlencoded());
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
@@ -46,9 +51,27 @@ app.get('/edit', async (req, res) => {
         console.error(err);
         return res.send(err.message);
     }
-}
 });
 
+app.post('/edit', async (req, res) => {
+    const {
+        first_name,
+        last_name,
+        email
+    } = req.body;
+
+    if (req.query.id) {
+        //update the person with values in the request
+        await runSqueal('update people set first_name = $2, last_name = $3, email = $4 where id = $1',
+            req.query.id, first_name, last_name, email);
+
+    } else {
+        //create the person with values in the request
+        await runSqueal('insert into people (first_name, last_name, email) values ($1, $2, $3)',
+            first_name, last_name, email);
+    }
+    return res.render('home');
+});
 
 app.get('/delete', async (req, res) => {
     if (req.query.id) {
@@ -56,7 +79,6 @@ app.get('/delete', async (req, res) => {
     }
     return res.render('home');
 });
-
 
 
 // TODO: Support for mass email/phone call/text. 
