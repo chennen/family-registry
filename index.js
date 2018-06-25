@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
         const client = await pool.connect()
         const contacts = await client.query('SELECT * FROM people');
         console.log(contacts);
-        res.render('home', contacts);
+        res.render('home', { 'contacts': contacts.rows });
         client.release();
     } catch (err) {
         console.error(err);
