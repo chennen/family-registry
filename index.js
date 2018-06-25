@@ -68,14 +68,14 @@ app.post('/edit', async (req, res) => {
         await runSqueal('insert into people (first_name, last_name, email) values ($1, $2, $3)',
             first_name, last_name, email);
     }
-    return res.redirect('home');
+    return res.redirect('/');
 });
 
 app.get('/delete', async (req, res) => {
     if (req.query.id) {
         await runSqueal('delete from people where id = $1', req.query.id);
     }
-    return res.redirect('home');
+    return res.redirect('/');
 });
 
 
