@@ -20,27 +20,60 @@ app.set('view engine', 'handlebars');
 // plus a chosen dropdown to search easily
 app.get('/', async (req, res) => {
 
-    const pool = new pg.Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true
-    });
-
     try {
-        const client = await pool.connect()
-        const contacts = await client.query('SELECT * FROM people');
+
         console.log(contacts);
-        res.render('home', { 'contacts': contacts.rows });
-        client.release();
+        const contacts = await runSqueal('select * from people');
+        res.render('home', { contacts });
     } catch (err) {
         console.error(err);
         res.send(err.message);
     }
 });
 
-// TODO: Routes for add/edit/delete
+app.get('/edit', async (req, res) => {
+    if (!req.query.id) {
+        //create a new record
+        return res.render('edit');
+    }
+
+    //edit an existing record
+    try {
+        const contact = await runSqueal('select * from people where id = $1', req.query.id);
+        return res.render('edit', { contact });
+    }
+    catch (err) {
+        console.error(err);
+        return res.send(err.message);
+    }
+}
+});
+
+
+app.get('/delete', async (req, res) => {
+    if (req.query.id) {
+        await runSqueal('delete from people where id = $1', req.query.id);
+    }
+    return res.render('home');
+});
+
+
 
 // TODO: Support for mass email/phone call/text. 
 // Requires "preferred comm method" flag prob.
 
 
 app.listen(process.env.PORT || 3000)
+
+
+const runSqueal = async (sql, ...params) => {
+    const pool = new pg.Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
+    });
+
+    const client = await pool.connect()
+    const results = await client.query(sql, params);
+    client.release();
+    return results.rows;
+}
