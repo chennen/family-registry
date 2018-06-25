@@ -68,14 +68,14 @@ app.post('/edit', async (req, res) => {
         await runSqueal('insert into people (first_name, last_name, email) values ($1, $2, $3)',
             first_name, last_name, email);
     }
-    return res.render('home');
+    return res.redirect('home');
 });
 
 app.get('/delete', async (req, res) => {
     if (req.query.id) {
         await runSqueal('delete from people where id = $1', req.query.id);
     }
-    return res.render('home');
+    return res.redirect('home');
 });
 
 
@@ -93,11 +93,7 @@ const runSqueal = async (sql, ...params) => {
     });
 
     const client = await pool.connect()
-    console.log('running a squeal query');
-    console.log(sql);
-    console.log(params);
     const results = await client.query(sql, params);
-    console.log(results);
     client.release();
     return results.rows;
 }
