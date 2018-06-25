@@ -95,7 +95,11 @@ const runSqueal = async (sql, ...params) => {
     });
 
     const client = await pool.connect()
+    console.log('running a squeal query');
+    console.log(sql);
+    console.log(params);
     const results = await client.query(sql, params);
+    console.log(results);
     client.release();
     return results.rows;
 }
