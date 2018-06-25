@@ -8,7 +8,8 @@ const password = process.env.PASSWORD || 'secretsecret';
 
 const app = express();
 app.use(basicAuth({
-    users: { [username]: password }
+    users: { [username]: password },
+    challenge: true
 }));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
