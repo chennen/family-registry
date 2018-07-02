@@ -14,9 +14,23 @@ app.use(basicAuth({
     challenge: true
 }));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+const helpers = {
+    "debug": (optionalValue) => {
+        console.log("Current Context");
+        console.log("====================");
+        console.log(this);
+
+        if (optionalValue) {
+            console.log("Value");
+            console.log("====================");
+            console.log(optionalValue);
+        }
+    }
+};
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers }));
 app.set('view engine', 'handlebars');
 
 //TODO: add middleware for logging in, probably just basic auth is fine.
@@ -56,15 +70,16 @@ app.get('/edit', async (req, res) => {
 
 app.post('/edit', async (req, res) => {
     const {
+        id,
         first_name,
         last_name,
         email
     } = req.body;
 
-    if (req.query.id) {
+    if (id) {
         //update the person with values in the request
         await runSqueal('update people set first_name = $2, last_name = $3, email = $4 where id = $1',
-            req.query.id, first_name, last_name, email);
+            id, first_name, last_name, email);
 
     } else {
         //create the person with values in the request
