@@ -10,7 +10,6 @@
             <th>Last</th>
             <th>Email</th>
             <th></th>
-            <th></th>
         </tr>
 
         {{#each contacts}}
@@ -20,9 +19,7 @@
             <td>{{email}}</td>
             <td>
                 <a class="btn btn-default" href="edit?id={{id}}">Edit</a>
-            </td>
-            <td>
-                <a class="btn btn-default" href="delete?id={{id}}">Delete</a>
+                <a class="btn btn-danger" href="delete?id={{id}}">Delete</a>
             </td>
         </tr>
         {{/each}}

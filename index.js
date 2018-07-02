@@ -52,6 +52,7 @@ app.get('/edit', async (req, res) => {
 });
 
 app.post('/edit', async (req, res) => {
+    console.log(req.body);
     const {
         first_name,
         last_name,
