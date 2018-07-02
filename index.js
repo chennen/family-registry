@@ -49,8 +49,6 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/edit', async (req, res) => {
-    console.log(req.query);
-
     if (!req.query.id) {
         //create a new record
         return res.render('edit');
@@ -69,6 +67,8 @@ app.get('/edit', async (req, res) => {
 });
 
 app.post('/edit', async (req, res) => {
+    console.log(req);
+    
     const {
         id,
         first_name,
