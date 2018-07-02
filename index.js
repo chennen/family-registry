@@ -58,8 +58,8 @@ app.get('/edit', async (req, res) => {
 
     //edit an existing record
     try {
-        const contact = await runSqueal('select * from people where id = $1', req.query.id);
-        console.log(contact);
+        const contacts = await runSqueal('select * from people where id = $1', req.query.id);
+        const contact = contacts[0];
         return res.render('edit', { contact });
     }
     catch (err) {
