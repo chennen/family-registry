@@ -67,19 +67,16 @@ app.get('/edit', async (req, res) => {
 });
 
 app.post('/edit', async (req, res) => {
-    console.log(req);
-    
     const {
-        id,
         first_name,
         last_name,
         email
     } = req.body;
 
-    if (id) {
+    if (req.query.id) {
         //update the person with values in the request
         await runSqueal('update people set first_name = $2, last_name = $3, email = $4 where id = $1',
-            id, first_name, last_name, email);
+            req.query.id, first_name, last_name, email);
 
     } else {
         //create the person with values in the request
