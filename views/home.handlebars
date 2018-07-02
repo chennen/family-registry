@@ -1,28 +1,33 @@
-<h1>Family Reunion Contact Info</h1>
+<div class="row">
+    <h1>Family Reunion Contact Info</h1>
+</div>
 
-<h2>Contacts</h2>
-<table>
-    <tr>
-        <th>First</th>
-        <th>Last</th>
-        <th>Email</th>
-        <th></th>
-        <th></th>
-    </tr>
+<div class="row">
+    <h2>Contacts</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>First</th>
+            <th>Last</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
 
-    {{#each contacts}}
-    <tr>
-        <td>{{first_name}}</td>
-        <td>{{last_name}}</td>
-        <td>{{email}}</td>
-        <td>
-            <a href="edit?id={{id}}">Edit</a>
-        </td>
-        <td>
-            <a href="delete?id={{id}}">Delete</a>
-        </td>
-    </tr>
-    {{/each}}
-</table>
-
-<a href="edit">Create New Person</a>
+        {{#each contacts}}
+        <tr>
+            <td>{{first_name}}</td>
+            <td>{{last_name}}</td>
+            <td>{{email}}</td>
+            <td>
+                <a class="btn btn-default" href="edit?id={{id}}">Edit</a>
+            </td>
+            <td>
+                <a class="btn btn-default" href="delete?id={{id}}">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+<div class="row">
+    <a class="btn btn-default" href="edit">Create New Person</a>
+</div>
