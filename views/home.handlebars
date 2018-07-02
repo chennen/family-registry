@@ -3,6 +3,24 @@
 </div>
 
 <div class="row">
+    <form action="POST">
+        <div class="form-group">
+            <select data-placeholder="Search..." multiple name="chosen-select" class="form-control chosen-select" name="selectedPeople"
+                id="selectedPeople">
+                {{#each contacts}}
+                <option value={{id}}>{{first_name + " " + last_name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Do Something</button>
+            <!-- extra submit buttons here. have server code figure out which submit button was pressed -->
+            <!-- alternatively, just go to a different page or launch a different popup to do _something_ with the selected people -->
+        </div>
+    </form>
+</div>
+
+<div class="row">
     <h2>Contacts</h2>
     <table class="table table-striped">
         <tr>
