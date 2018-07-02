@@ -35,6 +35,8 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/edit', async (req, res) => {
+    console.log(req.query);
+
     if (!req.query.id) {
         //create a new record
         return res.render('edit');
@@ -43,6 +45,7 @@ app.get('/edit', async (req, res) => {
     //edit an existing record
     try {
         const contact = await runSqueal('select * from people where id = $1', req.query.id);
+        console.log(contact);
         return res.render('edit', { contact });
     }
     catch (err) {
@@ -52,7 +55,6 @@ app.get('/edit', async (req, res) => {
 });
 
 app.post('/edit', async (req, res) => {
-    console.log(req.body);
     const {
         first_name,
         last_name,
