@@ -9,10 +9,10 @@ const password = process.env.PASSWORD || 'secretsecret';
 
 const app = express();
 
-app.use(basicAuth({
-    users: { [username]: password },
-    challenge: true
-}));
+// app.use(basicAuth({
+//     users: { [username]: password },
+//     challenge: true
+// }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,7 +31,7 @@ const helpers = {
 };
 
 // serve up any static content too
-// app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers }));
 app.set('view engine', 'handlebars');
@@ -107,7 +107,8 @@ app.listen(process.env.PORT || 3000)
 const runSqueal = async (sql, ...params) => {
     const pool = new pg.Pool({
         connectionString: process.env.DATABASE_URL,
-        ssl: true
+        database: 'familydirectory',
+        // ssl: true
     });
 
     const client = await pool.connect()
