@@ -31,7 +31,7 @@ const helpers = {
 };
 
 // serve up any static content too
-// app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers }));
 app.set('view engine', 'handlebars');
