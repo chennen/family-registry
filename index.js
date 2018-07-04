@@ -38,7 +38,6 @@ app.set('view engine', 'handlebars');
 
 //TODO: add middleware for logging in, probably just basic auth is fine.
 
-// Show a directory in a table or something,
 // plus a chosen dropdown to search easily
 app.get('/', async (req, res) => {
 
