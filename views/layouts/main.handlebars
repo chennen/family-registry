@@ -14,7 +14,7 @@
         crossorigin="anonymous">
 
     <!-- chosen jquery plugin -->
-    <link rel="/public/chosen_v1.8.7/chosen.css">
+    <link rel="stylesheet" href="/public/chosen_v1.8.7/chosen.css">
 
 </head>
 
@@ -29,6 +29,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
     <script src="/public/chosen_v1.8.7/chosen.jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.chosen-select').chosen();
+        });
+    </script>
 </body>
 
 </html>

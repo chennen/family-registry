@@ -5,7 +5,7 @@
 <div class="row">
     <form action="POST">
         <div class="form-group">
-            <select data-placeholder="Search..." multiple name="chosen-select" class="form-control chosen-select" name="selectedPeople"
+            <select data-placeholder="Search..." multiple id="topSelect" name="chosen-select" class="form-control chosen-select" name="selectedPeople"
                 id="selectedPeople">
                 {{#each contacts}}
                 <option value={{id}}>{{first_name}} {{last_name}}</option>
