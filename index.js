@@ -9,10 +9,10 @@ const password = process.env.PASSWORD || 'secretsecret';
 
 const app = express();
 
-// app.use(basicAuth({
-//     users: { [username]: password },
-//     challenge: true
-// }));
+app.use(basicAuth({
+    users: { [username]: password },
+    challenge: true
+}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
